@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/st_dark_blue"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="20dp"
+    android:paddingRight="10dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <!--android:background="@drawable/side_nav_bar"-->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_st25_transp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="@string/st25_nfc_tags_and_readers"
+        android:textSize="18dp"
+        android:textColor="@color/white" />
+
+</LinearLayout>
