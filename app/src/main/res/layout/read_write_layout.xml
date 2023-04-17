@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvWaterIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Water Index"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+
+    <EditText
+        android:id="@+id/edtDefaultIDYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:background="@drawable/bg_edittext"
+        app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
+        app:layout_constraintRight_toLeftOf="@id/tvCountry"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="m3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+
+
+    <TextView
+        android:id="@+id/tvPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pressure"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/edtPressure"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edtPressure" />
+
+    <EditText
+        android:id="@+id/edtPressure"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edittext"
+        app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
+        app:layout_constraintRight_toLeftOf="@id/tvUnitWaterPressure"
+        app:layout_constraintTop_toBottomOf="@id/edtDefaultIDYear" />
+
+    <TextView
+        android:id="@+id/tvUnitWaterPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bar"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/edtPressure"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edtPressure" />
+
+    <TextView
+        android:id="@+id/btnRead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
+        android:text="Read"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPressure" />
+
+    <TextView
+        android:id="@+id/btnWrite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
+        android:text="Read"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/btnRead"
+        app:layout_constraintRight_toLeftOf="@id/btnReadData"
+        app:layout_constraintTop_toTopOf="@id/btnRead" />
+
+    <TextView
+        android:id="@+id/btnReadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
+        android:text="Read"
+        android:textSize="16sp"
+        android:textStyle="bold"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnRead" />
+</androidx.constraintlayout.widget.ConstraintLayout>

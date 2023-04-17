@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvTitlSensorSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RTC Settings"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvIntervalGetPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AM/PM"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+
+        <EditText
+            android:id="@+id/edtEnable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvIntervalGetPressure"
+            app:layout_constraintRight_toLeftOf="@id/tvInterval"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="12/24"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
+            app:layout_constraintLeft_toRightOf="@id/edtEnable"
+            app:layout_constraintRight_toLeftOf="@id/edtInterval"
+            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+
+        <EditText
+            android:id="@+id/edtInterval"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvInterval"
+            app:layout_constraintRight_toLeftOf="@id/tvWeek"
+            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+
+        <TextView
+            android:id="@+id/tvWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Week"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
+            app:layout_constraintLeft_toRightOf="@id/edtInterval"
+            app:layout_constraintRight_toLeftOf="@id/edtWeek" />
+
+        <EditText
+            android:id="@+id/edtWeek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvWeek"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hour"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtPort"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtPort" />
+
+        <EditText
+            android:id="@+id/edtPort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvPort"
+            app:layout_constraintRight_toLeftOf="@id/tvServer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Minute"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtPort"
+            app:layout_constraintLeft_toRightOf="@id/edtPort"
+            app:layout_constraintRight_toLeftOf="@id/edtServer"
+            app:layout_constraintTop_toTopOf="@id/edtPort" />
+
+        <EditText
+            android:id="@+id/edtServer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvServer"
+            app:layout_constraintRight_toLeftOf="@id/tvSecond"
+            app:layout_constraintTop_toTopOf="@id/edtPort" />
+
+        <TextView
+            android:id="@+id/tvSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Second"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtPort"
+            app:layout_constraintLeft_toRightOf="@id/edtServer"
+            app:layout_constraintRight_toLeftOf="@id/edtSecond" />
+
+        <EditText
+            android:id="@+id/edtSecond"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvSecond"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtPort" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvAPN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Day"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtDay"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtDay" />
+
+        <EditText
+            android:id="@+id/edtDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvAPN"
+            app:layout_constraintRight_toLeftOf="@id/tvMonth"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Month"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtDay"
+            app:layout_constraintLeft_toRightOf="@id/edtDay"
+            app:layout_constraintRight_toLeftOf="@id/edtMonth"
+            app:layout_constraintTop_toTopOf="@id/edtDay" />
+
+        <EditText
+            android:id="@+id/edtMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvMonth"
+            app:layout_constraintRight_toLeftOf="@id/tvYear"
+            app:layout_constraintTop_toTopOf="@id/edtDay" />
+
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="Year"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtDay"
+            app:layout_constraintLeft_toRightOf="@id/edtMonth"
+            app:layout_constraintRight_toLeftOf="@id/edtYear" />
+
+        <EditText
+            android:id="@+id/edtYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvYear"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtDay" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

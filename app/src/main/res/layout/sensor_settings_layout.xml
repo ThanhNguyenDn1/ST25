@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvTitlSensorSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sensor Settings"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvIntervalGetPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interval get Pressure"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtIntervalGetPressure"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtIntervalGetPressure" />
+
+        <EditText
+            android:id="@+id/edtIntervalGetPressure"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvIntervalGetPressure"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnitIntervalGetPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="minute(s)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtIntervalGetPressure"
+            app:layout_constraintLeft_toRightOf="@id/edtIntervalGetPressure"
+            app:layout_constraintTop_toTopOf="@id/edtIntervalGetPressure" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvHighPressureAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="High Pressure Alarm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtHighPressureAlarm"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtHighPressureAlarm" />
+
+        <EditText
+            android:id="@+id/edtHighPressureAlarm"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvHighPressureAlarm"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnitHighPressureAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="bar"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtHighPressureAlarm"
+            app:layout_constraintLeft_toRightOf="@id/edtHighPressureAlarm"
+            app:layout_constraintTop_toTopOf="@id/edtHighPressureAlarm" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvLowPressureAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low Pressure Alarm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtLowPressureAlarm"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtLowPressureAlarm" />
+
+        <EditText
+            android:id="@+id/edtLowPressureAlarm"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvLowPressureAlarm"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="bar"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtLowPressureAlarm"
+            app:layout_constraintLeft_toRightOf="@id/edtLowPressureAlarm"
+            app:layout_constraintTop_toTopOf="@id/edtLowPressureAlarm" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvIntervalCheckPressureAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interval check Pressure Alarm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtIntervalCheckPressureAlarm"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtIntervalCheckPressureAlarm" />
+
+        <EditText
+            android:id="@+id/edtIntervalCheckPressureAlarm"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvIntervalCheckPressureAlarm"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="minute(s)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtIntervalCheckPressureAlarm"
+            app:layout_constraintLeft_toRightOf="@id/edtIntervalCheckPressureAlarm"
+            app:layout_constraintTop_toTopOf="@id/edtIntervalCheckPressureAlarm" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvROCPulseCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ROC Pulse Counter"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtROCPulseCounter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtROCPulseCounter" />
+
+        <EditText
+            android:id="@+id/edtROCPulseCounter"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvROCPulseCounter"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="%"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtROCPulseCounter"
+            app:layout_constraintLeft_toRightOf="@id/edtROCPulseCounter"
+            app:layout_constraintTop_toTopOf="@id/edtROCPulseCounter" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvROCPulseInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ROC Pulse Invertail"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtROCPulseInterval"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtROCPulseInterval" />
+
+        <EditText
+            android:id="@+id/edtROCPulseInterval"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvROCPulseInterval"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="minute(s)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtROCPulseInterval"
+            app:layout_constraintLeft_toRightOf="@id/edtROCPulseInterval"
+            app:layout_constraintTop_toTopOf="@id/edtROCPulseInterval" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvCounterMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Counter Mode"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtCounterMode"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtCounterMode" />
+
+        <EditText
+            android:id="@+id/edtCounterMode"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintLeft_toRightOf="@id/tvCounterMode"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="minute(s)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edtCounterMode"
+            app:layout_constraintLeft_toRightOf="@id/edtCounterMode"
+            app:layout_constraintTop_toTopOf="@id/edtCounterMode" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
