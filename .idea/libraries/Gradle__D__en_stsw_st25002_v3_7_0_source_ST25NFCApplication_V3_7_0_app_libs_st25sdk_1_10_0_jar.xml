@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: D./en.stsw-st25002_v3.7.0/source_ST25NFCApplication_V3.7.0/app/libs/st25sdk-1.10.0.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/st25sdk-1.10.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

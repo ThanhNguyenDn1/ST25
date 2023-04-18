@@ -1,0 +1,584 @@
+package com.st.st25nfc.generic.readDataST;
+
+import static com.st.st25sdk.MultiAreaInterface.AREA1;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.st.st25nfc.R;
+import com.st.st25nfc.databinding.ActivityCovertBinding;
+import com.st.st25nfc.generic.PwdDialogFragment;
+import com.st.st25nfc.generic.STFragmentActivity;
+import com.st.st25nfc.generic.util.UIHelper;
+import com.st.st25sdk.MultiAreaInterface;
+import com.st.st25sdk.NFCTag;
+import com.st.st25sdk.STException;
+import com.st.st25sdk.STLog;
+import com.st.st25sdk.type2.Type2Tag;
+import com.st.st25sdk.type4a.FileControlTlvType4;
+import com.st.st25sdk.type4a.STType4Tag;
+import com.st.st25sdk.type4a.Type4Tag;
+import com.st.st25sdk.type5.STType5Tag;
+import com.st.st25sdk.type5.Type5Tag;
+
+import java.util.ArrayList;
+
+public class CovertActivity extends STFragmentActivity {
+    private ActivityCovertBinding mBinding;
+    private CoverViewmodel mViewmodel;
+
+    //old
+
+    // Set here the Toolbar to use for this activity
+    private int toolbar_res = R.menu.toolbar_empty;
+
+    // The data are now read by Byte but we will still format the display by raw of 4 Bytes
+    private final int NBR_OF_BYTES_PER_RAW = 4;
+
+    private int mStartAddress;
+    private int mNumberOfBytes;
+
+    private static final String TAG = "ReadFragmentActivity";
+    private ContentViewAsync mContentView;
+    private boolean mIsAreaProtectedInWrite;
+    private boolean mIsAreaProtectedInRead;
+
+
+    // For type 4 read in case of several area
+    // Default value
+    private int mAreaId = AREA1;
+    private boolean mUnitInBytes;
+
+    private byte[] mReadPassword;
+    private byte[] mWritePassword;
+
+
+    enum ActionStatus {
+        ACTION_SUCCESSFUL, ACTION_FAILED, TAG_WRITE_PROTECTED, AREA_PASSWORD_NEEDED, TAG_NOT_IN_THE_FIELD
+    }
+
+    ;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding = ActivityCovertBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        setData();
+        setView();
+        handlerEvent();
+    }
+
+    private void handlerEvent() {
+        mBinding.icdReadWrite.btnRead.setOnClickListener(view -> {
+            if (startSmartTagReadGetParametersFromUI()) {
+                startSmartTagRead();
+            }
+        });
+    }
+
+    private void setView() {
+    }
+
+    private void setData() {
+        mViewmodel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(CoverViewmodel.class);
+        if (super.getTag() == null) {
+            showToast(R.string.invalid_tag);
+            goBackToMainActivity();
+            return;
+        }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        mUnitInBytes = false;
+
+
+        // Retrieve parameters for start and UI configuration
+        Intent mIntent = getIntent();
+        // define the start address and numbers of bytes to read for display
+        int startAddress = mIntent.getIntExtra("start_address", -1);
+        int nbOfBytes = mIntent.getIntExtra("nb_of_bytes", -1);
+        // define the data as an array of bytes to display
+        byte[] data = mIntent.getByteArrayExtra("data");
+        // define the file id for the display - Type4 Tags needed - replace start address and numbers of bytes
+        int areaFileID = mIntent.getIntExtra("areaFileID", -1);
+        if (areaFileID != -1) mAreaId = areaFileID;
+        // information message
+        String information = mIntent.getStringExtra("information");
+        if (information == null) information = getString(R.string.hexadecimal_dump);
+
+        // Manage the dump display for a Type4 Tag
+
+
+        // Manage an hexa dump - no tag dependency
+        if (data != null) {
+            // UI setting
+            configureUIItemsForHexaDumpOnly(information);
+            // Displaying
+            startDisplaying(data);
+        } else if (areaFileID != -1 && getTag() instanceof Type4Tag) {
+            // UI setting
+            configureUIItemsForHexaDumpOnly(information);
+            // start reading ...
+            mAreaId = areaFileID;
+            startType4ReadingAndDisplaying((Type4Tag) getTag(), areaFileID);
+        } else if (startAddress >= 0 && nbOfBytes >= 0 && getTag() instanceof Type5Tag) { // manage the dump with start address and number of bytes - Type5
+            mStartAddress = startAddress;
+            mNumberOfBytes = nbOfBytes;
+            // UI setting
+            configureUIItemsForHexaDumpOnly(information);
+            // inform user that a read will be performed
+//            Snackbar snackbar = Snackbar.make(mChildView , "", Snackbar.LENGTH_LONG);
+//            snackbar.setAction(getString(R.string.reading_x_bytes_starting_y_address,mNumberOfBytes,mStartAddress), this);
+//
+//            snackbar.setActionTextColor(getResources().getColor(R.color.white));
+//            snackbar.show();
+            // start reading ...
+            startType5ReadingAndDisplaying(mStartAddress, mNumberOfBytes);
+        } else if (startAddress >= 0 && nbOfBytes >= 0 && getTag() instanceof Type2Tag) { // manage the dump with start address and number of bytes - Type2
+            mStartAddress = startAddress;
+            mNumberOfBytes = nbOfBytes;
+            // UI setting
+            configureUIItemsForHexaDumpOnly(information);
+            // inform user that a read will be performed
+//            Snackbar snackbar = Snackbar.make(mChildView , "", Snackbar.LENGTH_LONG);
+//            snackbar.setAction(getString(R.string.reading_x_bytes_starting_y_address,mNumberOfBytes,mStartAddress), this);
+//
+//            snackbar.setActionTextColor(getResources().getColor(R.color.white));
+//            snackbar.show();
+            // start reading ...
+            startType2ReadingAndDisplaying(mStartAddress, mNumberOfBytes);
+        } else {
+            // default behaviour - user have to enter read parameters
+            // Manage UI for Tag Type4
+            if (getTag() instanceof Type4Tag) {
+                // display layout for type4
+                displayType4ReadSelectionParameters();
+                fillType4SpinnerForSelection((Type4Tag) getTag());
+            } else {
+                displayType5ReadSelectionParameters();
+            }
+        }
+
+    }
+
+
+    private void fillType4SpinnerForSelection(Type4Tag tag) {
+        Spinner spinnerUnit = (Spinner) findViewById(R.id.areaIdSpinner);
+        ArrayList<String> stringArrayList = new ArrayList<String>();
+
+        try {
+            int numberOfFiles = tag.getNbrOfFiles();
+            for (int i = 0; i < numberOfFiles; i++) {
+                stringArrayList.add(getString(R.string.area_number_to_name) + (i + 1));
+            }
+        } catch (STException e) {
+            e.printStackTrace();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stringArrayList);
+        spinnerUnit.setAdapter(adapter);
+        spinnerUnit.setSelection(0);
+        spinnerUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mAreaId = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (mAreaId == 0) mAreaId = 1;
+            }
+        });
+
+    }
+
+    private void removeType4ReadSelectionParameters() {
+        LinearLayout type4LayoutParameters = (LinearLayout) findViewById(R.id.areaIdLayout);
+        type4LayoutParameters.setVisibility(View.GONE);
+    }
+
+    private void displayType4ReadSelectionParameters() {
+        LinearLayout type4LayoutParameters = (LinearLayout) findViewById(R.id.areaIdLayout);
+        type4LayoutParameters.setVisibility(View.VISIBLE);
+        removeType5ReadSelectionParameters();
+    }
+
+    private void removeType5ReadSelectionParameters() {
+        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
+        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
+        startAddressLayout.setVisibility(View.GONE);
+        nbrOfBytesLayout.setVisibility(View.GONE);
+        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
+        unitLayout.setVisibility(View.GONE);
+    }
+
+    private void displayType5ReadSelectionParameters() {
+        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
+        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
+        startAddressLayout.setVisibility(View.VISIBLE);
+        nbrOfBytesLayout.setVisibility(View.VISIBLE);
+        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
+        unitLayout.setVisibility(View.VISIBLE);
+        removeType4ReadSelectionParameters();
+    }
+
+    private void configureUIItemsForHexaDumpOnly(String information) {
+        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
+        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
+        startAddressLayout.setVisibility(View.GONE);
+        nbrOfBytesLayout.setVisibility(View.GONE);
+
+        LinearLayout informationLayout = (LinearLayout) findViewById(R.id.informationLayout);
+        informationLayout.setVisibility(View.VISIBLE);
+        TextView informationTextView = (TextView) findViewById(R.id.informationTextView);
+        if (information != null) {
+            informationTextView.setText(information);
+        }
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        // remove unit selection  - default in Bytes
+        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
+        unitLayout.setVisibility(View.GONE);
+    }
+
+    private int getMemoryAreaSizeInBytes(Type4Tag myTag, int area) {
+        int memoryAreaSizeInBytes = 0;
+        try {
+            if (myTag instanceof STType4Tag) {
+
+                int fileId = UIHelper.getType4FileIdFromArea(area);
+                FileControlTlvType4 controlTlv = ((STType4Tag) myTag).getCCFileTlv(fileId);
+
+                memoryAreaSizeInBytes = controlTlv.getMaxFileSize();
+
+            } else {
+                if (myTag instanceof MultiAreaInterface) {
+                    memoryAreaSizeInBytes = ((MultiAreaInterface) myTag).getAreaSizeInBytes(area);
+                } else {
+                    memoryAreaSizeInBytes = myTag.getMemSizeInBytes();
+                }
+            }
+        } catch (STException e) {
+            e.printStackTrace();
+        }
+        return memoryAreaSizeInBytes;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    class ContentViewAsync extends AsyncTask<Void, Integer, Boolean> {
+        byte mBuffer[] = null;
+        NFCTag mTag;
+        // Default value
+        int mArea = AREA1;
+
+        public ContentViewAsync(NFCTag myTag, int myArea) {
+            mTag = myTag;
+            mArea = myArea;
+        }
+
+        public ContentViewAsync(byte[] buffer) {
+            mBuffer = buffer;
+        }
+
+        private ContentViewAsync(NFCTag myTag, int myArea, byte[] buffer) {
+            mTag = myTag;
+            mArea = myArea;
+            mBuffer = buffer;
+        }
+
+        protected Boolean doInBackground(Void... arg0) {
+            if (mBuffer == null) {
+                try {
+                    if (UIHelper.isAType4Tag(mTag)) {
+                        // Tag type 4
+                        int size = getMemoryAreaSizeInBytes(((Type4Tag) mTag), mArea);
+                        mNumberOfBytes = size;
+                        mStartAddress = 0;
+
+                        int fileId = UIHelper.getType4FileIdFromArea(mArea);
+
+                        // inform user that a read will be performed
+                        //snackBarUiThread();
+                        if (mReadPassword != null && mTag instanceof STType4Tag) {
+                            mBuffer = ((STType4Tag) mTag).readBytes(fileId, 0, size, mReadPassword);
+                        } else {
+                            mBuffer = ((Type4Tag) mTag).readBytes(fileId, 0, size);
+                        }
+                        mReadPassword = null;
+                        int nbrOfBytesRead = 0;
+                        if (mBuffer != null) {
+                            nbrOfBytesRead = mBuffer.length;
+                        }
+                        if (nbrOfBytesRead != mNumberOfBytes) {
+                            showToast(R.string.error_during_read_operation, nbrOfBytesRead);
+                        }
+                    } else if (UIHelper.isAType5Tag(mTag)) {
+                        if (mArea == -1) {
+                            mAreaId = getAreaIdFromAddressInBytesForType5Tag(mStartAddress);
+                        }
+                        if (mAreaId == -1) {
+                            // An issue occured retrieving AreaId from Address
+                            // Address is probably invalid
+                            showToast(R.string.invalid_value);
+                            return false;
+
+                        } else {
+                            // Type 5
+                            mBuffer = getTag().readBytes(mStartAddress, mNumberOfBytes);
+                            // Warning: readBytes() may return less bytes than requested
+                            int nbrOfBytesRead = 0;
+                            if (mBuffer != null) {
+                                nbrOfBytesRead = mBuffer.length;
+                            }
+                            if (nbrOfBytesRead != mNumberOfBytes) {
+                                showToast(R.string.error_during_read_operation, nbrOfBytesRead);
+                            }
+                        }
+                    } else if (UIHelper.isAType2Tag(mTag)) {
+                        if (mArea == -1) {
+                            mAreaId = getAreaIdFromAddressInBytesForType2Tag(mStartAddress);
+                        }
+                        if (mAreaId == -1) {
+                            // An issue occured retrieving AreaId from Address
+                            // Address is probably invalid
+                            showToast(R.string.invalid_value);
+                            return false;
+
+                        } else {
+                            mBuffer = getTag().readBytes(mStartAddress, mNumberOfBytes);
+                            // Warning: readBytes() may return less bytes than requested
+                            int nbrOfBytesRead = 0;
+                            if (mBuffer != null) {
+                                nbrOfBytesRead = mBuffer.length;
+                            }
+                            if (nbrOfBytesRead != mNumberOfBytes) {
+                                showToast(R.string.error_during_read_operation, nbrOfBytesRead);
+                            }
+                        }
+                    } else {
+                        // An issue occured retrieving AreaId from Address
+                        // Tag type not yet handled
+                        showToast(R.string.invalid_value);
+                        return false;
+                    }
+                } catch (STException e) {
+                    mReadPassword = null;
+
+                    switch (e.getError()) {
+                        case TAG_NOT_IN_THE_FIELD:
+                            showToast(R.string.tag_not_in_the_field);
+                            break;
+                        case PASSWORD_NEEDED:
+                        case ISO15693_BLOCK_IS_LOCKED:
+                        case ISO15693_BLOCK_PROTECTED:
+                        case WRONG_SECURITY_STATUS:
+                            showToast(R.string.area_protected_in_read);
+                            if (mTag instanceof Type5Tag) {
+                                // Type 5
+                                // Check that targeted bytes not in several areas
+                                if (!isTargetedBytesInOneArea(mStartAddress, mNumberOfBytes)) {
+                                    // display information message that write on two areas protected....
+                                    return false;
+                                }
+                            }
+                            mIsAreaProtectedInRead = true;
+                            //showReadPasswordDialog(mAreaId);
+
+                            break;
+                        default:
+                            showToast(R.string.Command_failed);
+                    }
+                    Log.e(TAG, e.getMessage());
+                    return false;
+                }
+
+            } else {
+                // buffer already initialized by constructor - no need to read Tag.
+                // Nothing to do
+            }
+            return true;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (mBuffer != null && result == true) {
+                Toast.makeText(CovertActivity.this, ""+mBuffer.length, Toast.LENGTH_SHORT).show();
+                //TODO
+            }
+
+        }
+
+        public void selfRestart() {
+            mContentView = new ContentViewAsync(mTag, mAreaId, mBuffer);
+            mContentView.execute();
+        }
+    }
+// FOR PWD
+
+
+
+    private int convertItemToBytesUnit(int value) {
+        return value * NBR_OF_BYTES_PER_RAW;
+    }
+
+
+    private boolean startSmartTagReadGetParametersFromUI() {
+        Boolean ret = true;
+        try {
+            if (mUnitInBytes) {
+                //mStartAddress = Integer.parseInt(mStartAddressEditText.getText().toString());
+            } else {
+                int valInBlock = 0;//Integer.parseInt(mStartAddressEditText.getText().toString());
+                mStartAddress = convertItemToBytesUnit(valInBlock);
+            }
+        } catch (Exception e) {
+            STLog.e("Bad Start Address" + e.getMessage());
+            showToast(R.string.bad_start_address);
+            ret = false;
+        }
+
+        try {
+            if (mUnitInBytes) {
+                //mNumberOfBytes = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
+            } else {
+                //int valInBlock = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
+                mNumberOfBytes = convertItemToBytesUnit(0);
+            }
+        } catch (Exception e) {
+            STLog.e("Bad Numbers of Bytes" + e.getMessage());
+            showToast(R.string.bad_number_of_bytes);
+            ret = false;
+        }
+
+        // Hide Soft Keyboard
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        return ret;
+    }
+
+    private void startSmartTagRead() {
+        if (getTag() instanceof Type5Tag) {
+            startType5ReadingAndDisplaying(mStartAddress, mNumberOfBytes);
+        } else if (getTag() instanceof Type2Tag) {
+            startType2ReadingAndDisplaying(mStartAddress, mNumberOfBytes);
+        } else if (getTag() instanceof Type4Tag) {
+            // by defaut - read first area
+            startType4ReadingAndDisplaying(getTag(), mAreaId);
+        }
+    }
+
+    private int getAreaIdFromAddressInBytesForType5Tag(int address) {
+        int ret = AREA1;
+        if (getTag() instanceof MultiAreaInterface && getTag() instanceof STType5Tag) {
+            MultiAreaInterface tag = (MultiAreaInterface) getTag();
+            try {
+                ret = tag.getAreaFromByteAddress(address);
+            } catch (STException e) {
+                ret = -1;
+            }
+        }
+        return ret;
+    }
+
+    private int getAreaIdFromAddressInBytesForType2Tag(int address) {
+        // only one AREA for this type of Tag for time being
+        int ret = AREA1;
+        return ret;
+    }
+
+    private boolean isTargetedBytesInOneArea(int address, int numberOfBytes) {
+        boolean ret = true;
+        if (getTag() instanceof MultiAreaInterface && getTag() instanceof STType5Tag) {
+            MultiAreaInterface tag = (MultiAreaInterface) getTag();
+            try {
+                ret = (tag.getAreaFromByteAddress(address) == tag.getAreaFromByteAddress(address + numberOfBytes - 1));
+            } catch (STException e) {
+                // bad address or address and length over capacity
+                ret = false;
+            }
+        }
+        return ret;
+    }
+
+    private void startType5ReadingAndDisplaying(int startAddress, int numberOfBytes) {
+        mStartAddress = startAddress;
+        mNumberOfBytes = numberOfBytes;
+        mContentView = new ContentViewAsync(getTag(), -1);
+        mContentView.execute();
+
+    }
+
+    private void startType2ReadingAndDisplaying(int startAddress, int numberOfBytes) {
+        mStartAddress = startAddress;
+        mNumberOfBytes = numberOfBytes;
+        mContentView = new ContentViewAsync(getTag(), -1);
+        mContentView.execute();
+    }
+
+    private void startType4ReadingAndDisplaying(NFCTag tag, int area) {
+        mContentView = new ContentViewAsync(tag, area);
+        mContentView.execute();
+    }
+
+    private void startDisplaying(byte[] data) {
+        mContentView = new ContentViewAsync(data);
+        mContentView.execute();
+    }
+
+
+    public void onPause() {
+        if (mContentView != null) mContentView.cancel(true);
+
+        super.onPause();
+    }
+}

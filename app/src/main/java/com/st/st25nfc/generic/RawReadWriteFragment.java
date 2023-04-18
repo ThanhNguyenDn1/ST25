@@ -44,6 +44,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.st.st25nfc.R;
+import com.st.st25nfc.generic.readDataST.CovertActivity;
 import com.st.st25nfc.generic.util.UIHelper;
 import com.st.st25sdk.STException;
 import com.st.st25sdk.type2.st25tn.ST25TNTag;
@@ -119,7 +120,7 @@ public class RawReadWriteFragment extends STFragment {
                         Intent intent;
                         switch (arg2) {
                             case READ_MEMORY:
-                                intent = new Intent(getActivity(), ReadFragmentActivity.class);
+                                intent = new Intent(getActivity(), CovertActivity.class);
                                 startActivityForResult(intent, 1);
                                 break;
                             case WRITE_MEMORY:

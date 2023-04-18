@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: artifacts:st25.android.reader.interface:unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/st25.android.reader.interface/build/.transforms/e969a3e84108f2c0392500b5bc3f179e/jetified-st25_android_reader_interface-1.0.8-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/st25.android.reader.interface/build/.transforms/e969a3e84108f2c0392500b5bc3f179e/jetified-st25_android_reader_interface-1.0.8-release/res" />
+      <root url="file://$PROJECT_DIR$/st25.android.reader.interface/build/.transforms/e969a3e84108f2c0392500b5bc3f179e/jetified-st25_android_reader_interface-1.0.8-release/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
