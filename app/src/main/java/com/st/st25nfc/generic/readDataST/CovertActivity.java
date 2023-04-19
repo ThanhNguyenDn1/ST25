@@ -495,7 +495,7 @@ public class CovertActivity extends STFragmentActivity {
                 //mNumberOfBytes = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
             } else {
                 //int valInBlock = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
-                mNumberOfBytes = convertItemToBytesUnit(38);
+                mNumberOfBytes = convertItemToBytesUnit(40);
             }
         } catch (Exception e) {
             STLog.e("Bad Numbers of Bytes" + e.getMessage());
