@@ -121,7 +121,7 @@ public class RawReadWriteFragment extends STFragment {
                         switch (arg2) {
                             case READ_MEMORY:
                                 intent = new Intent(getActivity(), CovertActivity.class);
-                                startActivityForResult(intent, 1);
+                                startActivity(intent);
                                 break;
                             case WRITE_MEMORY:
                                 intent = new Intent(getActivity(), WriteFragmentActivity.class);

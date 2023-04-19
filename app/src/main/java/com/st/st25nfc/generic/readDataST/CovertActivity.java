@@ -10,23 +10,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.st.st25nfc.R;
 import com.st.st25nfc.databinding.ActivityCovertBinding;
-import com.st.st25nfc.generic.PwdDialogFragment;
 import com.st.st25nfc.generic.STFragmentActivity;
+import com.st.st25nfc.generic.util.NumberUtils;
 import com.st.st25nfc.generic.util.UIHelper;
 import com.st.st25sdk.MultiAreaInterface;
 import com.st.st25sdk.NFCTag;
@@ -185,7 +178,6 @@ public class CovertActivity extends STFragmentActivity {
 
 
     private void fillType4SpinnerForSelection(Type4Tag tag) {
-        Spinner spinnerUnit = (Spinner) findViewById(R.id.areaIdSpinner);
         ArrayList<String> stringArrayList = new ArrayList<String>();
 
         try {
@@ -198,68 +190,26 @@ public class CovertActivity extends STFragmentActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stringArrayList);
-        spinnerUnit.setAdapter(adapter);
-        spinnerUnit.setSelection(0);
-        spinnerUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mAreaId = position + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                if (mAreaId == 0) mAreaId = 1;
-            }
-        });
-
     }
 
     private void removeType4ReadSelectionParameters() {
-        LinearLayout type4LayoutParameters = (LinearLayout) findViewById(R.id.areaIdLayout);
-        type4LayoutParameters.setVisibility(View.GONE);
+
     }
 
     private void displayType4ReadSelectionParameters() {
-        LinearLayout type4LayoutParameters = (LinearLayout) findViewById(R.id.areaIdLayout);
-        type4LayoutParameters.setVisibility(View.VISIBLE);
-        removeType5ReadSelectionParameters();
+
     }
 
     private void removeType5ReadSelectionParameters() {
-        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
-        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
-        startAddressLayout.setVisibility(View.GONE);
-        nbrOfBytesLayout.setVisibility(View.GONE);
-        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
-        unitLayout.setVisibility(View.GONE);
+
     }
 
     private void displayType5ReadSelectionParameters() {
-        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
-        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
-        startAddressLayout.setVisibility(View.VISIBLE);
-        nbrOfBytesLayout.setVisibility(View.VISIBLE);
-        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
-        unitLayout.setVisibility(View.VISIBLE);
-        removeType4ReadSelectionParameters();
+
     }
 
     private void configureUIItemsForHexaDumpOnly(String information) {
-        LinearLayout startAddressLayout = (LinearLayout) findViewById(R.id.startAddressLayout);
-        LinearLayout nbrOfBytesLayout = (LinearLayout) findViewById(R.id.nbrOfBytesLayout);
-        startAddressLayout.setVisibility(View.GONE);
-        nbrOfBytesLayout.setVisibility(View.GONE);
 
-        LinearLayout informationLayout = (LinearLayout) findViewById(R.id.informationLayout);
-        informationLayout.setVisibility(View.VISIBLE);
-        TextView informationTextView = (TextView) findViewById(R.id.informationTextView);
-        if (information != null) {
-            informationTextView.setText(information);
-        }
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        // remove unit selection  - default in Bytes
-        LinearLayout unitLayout = (LinearLayout) findViewById(R.id.unitLayout);
-        unitLayout.setVisibility(View.GONE);
     }
 
     private int getMemoryAreaSizeInBytes(Type4Tag myTag, int area) {
@@ -287,12 +237,7 @@ public class CovertActivity extends STFragmentActivity {
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
         finish();
     }
 
@@ -448,6 +393,7 @@ public class CovertActivity extends STFragmentActivity {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             if (mBuffer != null && result == true) {
+                setDataView(mBuffer);
                 Toast.makeText(CovertActivity.this, ""+mBuffer.length, Toast.LENGTH_SHORT).show();
                 //TODO
             }
@@ -488,7 +434,7 @@ public class CovertActivity extends STFragmentActivity {
                 //mNumberOfBytes = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
             } else {
                 //int valInBlock = Integer.parseInt(mNbrOfBytesEditText.getText().toString());
-                mNumberOfBytes = convertItemToBytesUnit(0);
+                mNumberOfBytes = convertItemToBytesUnit(38);
             }
         } catch (Exception e) {
             STLog.e("Bad Numbers of Bytes" + e.getMessage());
@@ -580,5 +526,10 @@ public class CovertActivity extends STFragmentActivity {
         if (mContentView != null) mContentView.cancel(true);
 
         super.onPause();
+    }
+
+   public void setDataView(byte[] mBuffer){
+        mBinding.icdReadWrite.edtWaterIndex.setText(mViewmodel.getDexFromBuffer(6, 4, mBuffer));
+        mBinding.icdReadWrite.edtPressure.setText(mViewmodel.getDexFromBuffer(29,4, mBuffer));
     }
 }

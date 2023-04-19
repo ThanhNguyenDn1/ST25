@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/source_ST25NFCApplication_V3.7.0.iml" filepath="$PROJECT_DIR$/.idea/modules/source_ST25NFCApplication_V3.7.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/source_ST25NFCApplication_V3.7.0.app.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/st25.android.reader.interface/source_ST25NFCApplication_V3.7.0.st25.android.reader.interface.iml" filepath="$PROJECT_DIR$/.idea/modules/st25.android.reader.interface/source_ST25NFCApplication_V3.7.0.st25.android.reader.interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ST25.iml" filepath="$PROJECT_DIR$/.idea/modules/ST25.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ST25.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ST25.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ST25.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ST25.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ST25.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ST25.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ST25.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ST25.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/st25.android.reader.interface/ST25.st25.android.reader.interface.iml" filepath="$PROJECT_DIR$/.idea/modules/st25.android.reader.interface/ST25.st25.android.reader.interface.iml" />
     </modules>
   </component>
 </project>

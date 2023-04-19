@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/STAppTheme.NoActionBar">
         <activity
-            android:name=".CovertActivity"
+            android:name=".generic.readDataST.CovertActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

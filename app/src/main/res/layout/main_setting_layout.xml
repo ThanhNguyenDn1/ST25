@@ -28,12 +28,12 @@
             android:text="Default IDYear"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+            app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
 
         <EditText
-            android:id="@+id/edtDefaultIDYear"
+            android:id="@+id/edtWaterIndex"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
@@ -43,17 +43,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvCountry"
+            android:id="@+id/tvUnitWaterIndex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Country"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+            app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
             app:layout_constraintEnd_toStartOf="@id/edtCountry"
-            app:layout_constraintLeft_toRightOf="@id/edtDefaultIDYear"
-            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+            app:layout_constraintLeft_toRightOf="@id/edtWaterIndex"
+            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
 
         <EditText
             android:id="@+id/edtCountry"
@@ -62,7 +62,7 @@
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

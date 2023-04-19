@@ -12,30 +12,30 @@
         android:text="Water Index"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+        app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+        app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
 
     <EditText
-        android:id="@+id/edtDefaultIDYear"
+        android:id="@+id/edtWaterIndex"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:background="@drawable/bg_edittext"
         app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
-        app:layout_constraintRight_toLeftOf="@id/tvCountry"
+        app:layout_constraintRight_toLeftOf="@id/tvUnitWaterIndex"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCountry"
+        android:id="@+id/tvUnitWaterIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="m3"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
+        app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
+        app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
 
 
     <TextView
@@ -58,7 +58,7 @@
         android:background="@drawable/bg_edittext"
         app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
         app:layout_constraintRight_toLeftOf="@id/tvUnitWaterPressure"
-        app:layout_constraintTop_toBottomOf="@id/edtDefaultIDYear" />
+        app:layout_constraintTop_toBottomOf="@id/edtWaterIndex" />
 
     <TextView
         android:id="@+id/tvUnitWaterPressure"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_button"
         android:padding="10dp"
-        android:text="Read"
+        android:text="Write"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/btnRead"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_button"
         android:padding="10dp"
-        android:text="Read"
+        android:text="Read Data"
         android:textSize="16sp"
         android:textStyle="bold"
 
