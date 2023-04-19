@@ -12,9 +12,9 @@
         android:text="Water Index"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
+        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
+        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
 
     <EditText
         android:id="@+id/edtWaterIndex"
@@ -23,19 +23,19 @@
         android:layout_marginHorizontal="5dp"
         android:background="@drawable/bg_edittext"
         app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
-        app:layout_constraintRight_toLeftOf="@id/tvUnitWaterIndex"
+        app:layout_constraintRight_toLeftOf="@id/tvCountry"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvUnitWaterIndex"
+        android:id="@+id/tvCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="m3"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
+        app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
+        app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
 
 
     <TextView

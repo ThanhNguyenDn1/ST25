@@ -28,12 +28,12 @@
             android:text="Default IDYear"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
+            app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
+            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
 
         <EditText
-            android:id="@+id/edtWaterIndex"
+            android:id="@+id/edtDefaultIDYear"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
@@ -43,17 +43,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvUnitWaterIndex"
+            android:id="@+id/tvCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Country"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtWaterIndex"
+            app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
             app:layout_constraintEnd_toStartOf="@id/edtCountry"
-            app:layout_constraintLeft_toRightOf="@id/edtWaterIndex"
-            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
+            app:layout_constraintLeft_toRightOf="@id/edtDefaultIDYear"
+            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
 
         <EditText
             android:id="@+id/edtCountry"
@@ -62,7 +62,7 @@
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtWaterIndex" />
+            app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -170,7 +170,7 @@
             android:id="@+id/tvCustomID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default ID"
+            android:text="Custom ID"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtCustomID"
@@ -254,6 +254,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tvPulseInput1"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -314,12 +315,12 @@
             android:text="Pulse Input 2"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
+            app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
 
         <EditText
-            android:id="@+id/edtEnable"
+            android:id="@+id/edtPulseInput2"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
@@ -335,19 +336,19 @@
             android:text="SVD"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
-            app:layout_constraintEnd_toStartOf="@id/edtInterval"
-            app:layout_constraintLeft_toRightOf="@id/edtEnable"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
+            app:layout_constraintEnd_toStartOf="@id/edtSVD"
+            app:layout_constraintLeft_toRightOf="@id/edtPulseInput2"
+            app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
 
         <EditText
-            android:id="@+id/edtInterval"
+            android:id="@+id/edtSVD"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintRight_toLeftOf="@id/tvWeek"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
 
         <TextView
             android:id="@+id/tvWeek"
@@ -357,19 +358,19 @@
             android:text="Decimal"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
-            app:layout_constraintEnd_toStartOf="@id/edtWeek"
-            app:layout_constraintLeft_toRightOf="@id/edtEnable"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
+            app:layout_constraintEnd_toStartOf="@id/edtDecimal"
+            app:layout_constraintLeft_toRightOf="@id/edtPulseInput2"
+            app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
 
         <EditText
-            android:id="@+id/edtWeek"
+            android:id="@+id/edtDecimal"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

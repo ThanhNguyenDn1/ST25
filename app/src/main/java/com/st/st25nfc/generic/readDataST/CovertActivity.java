@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.st.st25nfc.R;
 import com.st.st25nfc.databinding.ActivityCovertBinding;
 import com.st.st25nfc.generic.STFragmentActivity;
-import com.st.st25nfc.generic.util.NumberUtils;
 import com.st.st25nfc.generic.util.UIHelper;
 import com.st.st25sdk.MultiAreaInterface;
 import com.st.st25sdk.NFCTag;
@@ -62,6 +61,7 @@ public class CovertActivity extends STFragmentActivity {
 
     private byte[] mReadPassword;
     private byte[] mWritePassword;
+    private byte[] mBuffer;
 
 
     enum ActionStatus {
@@ -87,6 +87,67 @@ public class CovertActivity extends STFragmentActivity {
                 startSmartTagRead();
             }
         });
+        mBinding.icdLoadUpdate.btnLoad.setOnClickListener(view -> {
+            loadDataView();
+        });
+    }
+
+    private void loadDataView() {
+        setViewMain();
+        setViewRTC();
+        setView3G();
+        setViewSensor();
+
+
+
+    }
+
+    private void setViewSensor() {
+        mBinding.icdSenserSettings.edtIntervalGetPressure.setText(mViewmodel.getDexFromBuffer(28, mBuffer, 0, 16));
+        mBinding.icdSenserSettings.edtHighPressureAlarm.setText(mViewmodel.getDexFromBuffer(31, mBuffer, 16, 23));
+        mBinding.icdSenserSettings.edtLowPressureAlarm.setText(mViewmodel.getDexFromBuffer(31, mBuffer, 8, 15));
+        mBinding.icdSenserSettings.edtIntervalCheckPressureAlarm.setText(mViewmodel.getDexFromBuffer(38, mBuffer, 18, 31));
+        mBinding.icdSenserSettings.edtROCPulseCounter.setText(mViewmodel.getDexFromBuffer(31, mBuffer, 0, 7));
+        mBinding.icdSenserSettings.edtROCPulseInterval.setText(mViewmodel.getDexFromBuffer(38, mBuffer, 4, 17));
+
+    }
+
+    private void setView3G() {
+        
+    }
+
+    private void setViewRTC() {
+        mBinding.icdRTCSettings.edtAMPM.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 21));
+        mBinding.icdRTCSettings.edt1224.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 21));//TODO
+        mBinding.icdRTCSettings.edtWeek.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 0,2));
+        mBinding.icdRTCSettings.edtHour.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 3,7));
+        mBinding.icdRTCSettings.edtMinute.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 8,13));
+        mBinding.icdRTCSettings.edtSecond.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 14,19));
+        mBinding.icdRTCSettings.edtDay.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 11,15));
+        mBinding.icdRTCSettings.edtMonth.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 7,10));
+        mBinding.icdRTCSettings.edtYear.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 0,6));
+        mBinding.icdRTCSettings.edtYear.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 0,6));
+    }
+
+    private void setViewMain() {
+        mBinding.icdMainSettings.edtDefaultIDYear.setText(mViewmodel.getDexFromBuffer(4, mBuffer, 0,7));
+        mBinding.icdMainSettings.edtDefaultIDMonth.setText(mViewmodel.getDexFromBuffer(3, mBuffer,24,31));
+        mBinding.icdMainSettings.edtDefaultID.setText(mViewmodel.getDexFromBuffer(3,  mBuffer,0,23));
+        mBinding.icdMainSettings.edtCountry.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,0,7));
+        mBinding.icdMainSettings.edtHardware.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,24,31));
+        mBinding.icdMainSettings.edtFirmWare.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,8,15));
+        mBinding.icdMainSettings.edtSW.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,16,23));
+        mBinding.icdMainSettings.edtCustomID.setText(mViewmodel.getDexFromBuffer(13,mBuffer, 0, 19));//TODO
+        mBinding.icdMainSettings.edtType.setText(mViewmodel.getDexFromBuffer(13,mBuffer, 20, 23));//TODO
+        mBinding.icdMainSettings.edtPulseInput1.setText(mViewmodel.getDexFromBuffer(0, mBuffer,0));
+        mBinding.icdMainSettings.edtPulseInput2.setText(mViewmodel.getDexFromBuffer(1, mBuffer,1));
+        mBinding.icdMainSettings.edtPulseM3.setText(mViewmodel.getDexFromBuffer(0,mBuffer,3, 16));
+        mBinding.icdMainSettings.edtDigit.setText(mViewmodel.getDexFromBuffer(0,mBuffer,17, 20));
+        mBinding.icdMainSettings.edtSVD.setText(mViewmodel.getDexFromBuffer(0, mBuffer, 26,31));
+        mBinding.icdMainSettings.edtDecimal.setText(mViewmodel.getDexFromBuffer(14, mBuffer, 23,24));
+        mBinding.icdMainSettings.edtPressure.setText(mViewmodel.getDexFromBuffer(14, mBuffer, 2));
+        mBinding.icdMainSettings.edtAction.setText("");//TODO
+        mBinding.icdMainSettings.edtBatVolt.setText(mViewmodel.getDexFromBuffer(12, mBuffer, 0,15));
     }
 
     private void setView() {
@@ -393,8 +454,9 @@ public class CovertActivity extends STFragmentActivity {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             if (mBuffer != null && result == true) {
+                CovertActivity.this.mBuffer = mBuffer;
                 setDataView(mBuffer);
-                Toast.makeText(CovertActivity.this, ""+mBuffer.length, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CovertActivity.this, "" + mBuffer.length, Toast.LENGTH_SHORT).show();
                 //TODO
             }
 
@@ -406,7 +468,6 @@ public class CovertActivity extends STFragmentActivity {
         }
     }
 // FOR PWD
-
 
 
     private int convertItemToBytesUnit(int value) {
@@ -528,8 +589,8 @@ public class CovertActivity extends STFragmentActivity {
         super.onPause();
     }
 
-   public void setDataView(byte[] mBuffer){
-        mBinding.icdReadWrite.edtWaterIndex.setText(mViewmodel.getDexFromBuffer(6, 4, mBuffer));
-        mBinding.icdReadWrite.edtPressure.setText(mViewmodel.getDexFromBuffer(29,4, mBuffer));
+    public void setDataView(byte[] mBuffer) {
+        mBinding.icdReadWrite.edtWaterIndex.setText(mViewmodel.getDexFromBuffer(6, mBuffer, 0,31));
+        mBinding.icdReadWrite.edtPressure.setText(mViewmodel.getDexFromBuffer(29, mBuffer, 0,31));
     }
 }

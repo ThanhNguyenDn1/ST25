@@ -30,12 +30,12 @@
             android:text="AM/PM"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
+            app:layout_constraintBottom_toBottomOf="@id/edtAMPM"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtAMPM" />
 
         <EditText
-            android:id="@+id/edtEnable"
+            android:id="@+id/edtAMPM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
@@ -52,20 +52,20 @@
             android:text="12/24"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
-            app:layout_constraintLeft_toRightOf="@id/edtEnable"
-            app:layout_constraintRight_toLeftOf="@id/edtInterval"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintBottom_toBottomOf="@id/edtAMPM"
+            app:layout_constraintLeft_toRightOf="@id/edtAMPM"
+            app:layout_constraintRight_toLeftOf="@id/edt1224"
+            app:layout_constraintTop_toTopOf="@id/edtAMPM" />
 
         <EditText
-            android:id="@+id/edtInterval"
+            android:id="@+id/edt1224"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintLeft_toRightOf="@id/tvInterval"
             app:layout_constraintRight_toLeftOf="@id/tvWeek"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtAMPM" />
 
         <TextView
             android:id="@+id/tvWeek"
@@ -75,8 +75,8 @@
             android:text="Week"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtEnable"
-            app:layout_constraintLeft_toRightOf="@id/edtInterval"
+            app:layout_constraintBottom_toBottomOf="@id/edtAMPM"
+            app:layout_constraintLeft_toRightOf="@id/edt1224"
             app:layout_constraintRight_toLeftOf="@id/edtWeek" />
 
         <EditText
@@ -87,7 +87,7 @@
             android:background="@drawable/bg_edittext"
             app:layout_constraintLeft_toRightOf="@id/tvWeek"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtEnable" />
+            app:layout_constraintTop_toTopOf="@id/edtAMPM" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,12 +102,12 @@
             android:text="Hour"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtPort"
+            app:layout_constraintBottom_toBottomOf="@id/edtHour"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtPort" />
+            app:layout_constraintTop_toTopOf="@id/edtHour" />
 
         <EditText
-            android:id="@+id/edtPort"
+            android:id="@+id/edtHour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
@@ -124,20 +124,20 @@
             android:text="Minute"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtPort"
-            app:layout_constraintLeft_toRightOf="@id/edtPort"
-            app:layout_constraintRight_toLeftOf="@id/edtServer"
-            app:layout_constraintTop_toTopOf="@id/edtPort" />
+            app:layout_constraintBottom_toBottomOf="@id/edtHour"
+            app:layout_constraintLeft_toRightOf="@id/edtHour"
+            app:layout_constraintRight_toLeftOf="@id/edtMinute"
+            app:layout_constraintTop_toTopOf="@id/edtHour" />
 
         <EditText
-            android:id="@+id/edtServer"
+            android:id="@+id/edtMinute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
             app:layout_constraintLeft_toRightOf="@id/tvServer"
             app:layout_constraintRight_toLeftOf="@id/tvSecond"
-            app:layout_constraintTop_toTopOf="@id/edtPort" />
+            app:layout_constraintTop_toTopOf="@id/edtHour" />
 
         <TextView
             android:id="@+id/tvSecond"
@@ -147,8 +147,8 @@
             android:text="Second"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/edtPort"
-            app:layout_constraintLeft_toRightOf="@id/edtServer"
+            app:layout_constraintBottom_toBottomOf="@id/edtHour"
+            app:layout_constraintLeft_toRightOf="@id/edtMinute"
             app:layout_constraintRight_toLeftOf="@id/edtSecond" />
 
         <EditText
@@ -159,7 +159,7 @@
             android:background="@drawable/bg_edittext"
             app:layout_constraintLeft_toRightOf="@id/tvSecond"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtPort" />
+            app:layout_constraintTop_toTopOf="@id/edtHour" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
