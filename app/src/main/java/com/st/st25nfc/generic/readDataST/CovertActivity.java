@@ -113,7 +113,7 @@ public class CovertActivity extends STFragmentActivity {
     }
 
     private void setView3G() {
-        
+
     }
 
     private void setViewRTC() {
