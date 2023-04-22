@@ -64,23 +64,28 @@ public class CoverViewmodel extends ViewModel {
     //data type dec or binary
     public byte[] setDataToBuffer(int indexBuffers, byte[] mBuffer, boolean isBinary, String data, int indexBitStart, int indexBitEnd) {
         String bitsOfLock = "";
+        for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
+            byte b1 = mBuffer[i];
+            String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
+            bitsOfLock = bitsOfLock.concat(s1);
+        }
         if (isBinary) {
             bitsOfLock = bitsOfLock.substring(0, indexBitStart) + data + bitsOfLock.substring(indexBitEnd + 1);
         }
         {
             int num = Integer.parseInt(data);
-            StringBuilder dataBitNew = new StringBuilder();
+            String dataBitNew ="";
+            int rem=0;
             while (num != 0) {
-                int rem = num % 2;
+                rem = num % 2;
                 num /= 2;
-                dataBitNew.insert(0, rem);
+                dataBitNew =(rem+"").concat(dataBitNew);
+            }
+            while(dataBitNew.length()<indexBitEnd-indexBitStart+1){
+                dataBitNew ="0".concat(dataBitNew);
             }
 
-            for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
-                byte b1 = mBuffer[i];
-                String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
-                bitsOfLock = bitsOfLock.concat(s1);
-            }
+
             bitsOfLock = bitsOfLock.substring(0, indexBitStart) + dataBitNew + bitsOfLock.substring(indexBitEnd + 1);
         }
         int j = 0;

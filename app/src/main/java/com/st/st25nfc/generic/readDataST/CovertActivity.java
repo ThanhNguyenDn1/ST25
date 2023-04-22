@@ -178,7 +178,7 @@ public class CovertActivity extends STFragmentActivity {
     private void getViewMain() {
         mBuffer = mViewmodel.setDataToBuffer(4, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDYear.getText().toString(), 0, 7);
         mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDMonth.getText().toString(), 24, 31);
-        mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultID.getText().toString(), 0, 23);
+      //  mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultID.getText().toString(), 0, 23);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtCountry.getText().toString(), 0, 7);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtHardware.getText().toString(), 24, 31);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtFirmWare.getText().toString(), 8, 15);
@@ -460,7 +460,7 @@ public class CovertActivity extends STFragmentActivity {
                         showToast(R.string.invalid_value);
                         return false;
                     }
-                } catch (STException e) {
+                } catch (STException e)
                     mReadPassword = null;
 
                     switch (e.getError()) {
