@@ -10,7 +10,7 @@ public class CoverViewmodel extends ViewModel {
         for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
             byte b1 = mBuffer[i];
             String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
-           bitsOfLock= bitsOfLock.concat(s1);
+            bitsOfLock = bitsOfLock.concat(s1);
         }
 
         return bitsOfLock.charAt(indexBit) + "";
@@ -19,19 +19,18 @@ public class CoverViewmodel extends ViewModel {
     public String getDexFromBuffer(int indexBuffers, byte[] mBuffer, int indexBitStart, int indexBitEnd) {
 
         String bitsOfLock = "";
-        for (int i = indexBuffers * 4 ; i < indexBuffers * 4 + 4; i++) {
+        for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
             byte b1 = mBuffer[i];
             String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
-            bitsOfLock=bitsOfLock.concat(s1);
+            bitsOfLock = bitsOfLock.concat(s1);
         }
-        String data = bitsOfLock.substring(indexBitStart, indexBitEnd+1);
+        String data = bitsOfLock.substring(indexBitStart, indexBitEnd + 1);
 
 
-        try{
-        return convertBinaryToDecimal(Long.parseLong(data)) + "";
-    }
-        catch (Exception io){
-            Log.e("22222", "getDexFromBuffer: "+io );
+        try {
+            return convertBinaryToDecimal(Long.parseLong(data)) + "";
+        } catch (Exception io) {
+            Log.e("22222", "getDexFromBuffer: " + io);
             return "err";
         }
 
@@ -53,12 +52,45 @@ public class CoverViewmodel extends ViewModel {
     }
 
     private int convertBinaryToDecimal(String num) {
-       int decimalNumber=0;
-       for(int i=0; i<num.length(); i++){
-           decimalNumber+=Math.pow(2,(int)num.charAt(i));
-       }
+        int decimalNumber = 0;
+        for (int i = 0; i < num.length(); i++) {
+            decimalNumber += Math.pow(2, (int) num.charAt(i));
+        }
 
         return decimalNumber;
+    }
+
+
+    //data type dec or binary
+    public byte[] setDataToBuffer(int indexBuffers, byte[] mBuffer, boolean isBinary, String data, int indexBitStart, int indexBitEnd) {
+        String bitsOfLock = "";
+        if (isBinary) {
+            bitsOfLock = bitsOfLock.substring(0, indexBitStart) + data + bitsOfLock.substring(indexBitEnd + 1);
+        }
+        {
+            int num = Integer.parseInt(data);
+            StringBuilder dataBitNew = new StringBuilder();
+            while (num != 0) {
+                int rem = num % 2;
+                num /= 2;
+                dataBitNew.insert(0, rem);
+            }
+
+            for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
+                byte b1 = mBuffer[i];
+                String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
+                bitsOfLock = bitsOfLock.concat(s1);
+            }
+            bitsOfLock = bitsOfLock.substring(0, indexBitStart) + dataBitNew + bitsOfLock.substring(indexBitEnd + 1);
+        }
+        int j = 0;
+        for (int i = indexBuffers * 4; i < indexBuffers * 4 + 4; i++) {
+            String subString = bitsOfLock.substring(j * 8, (j + 1) * 8);
+            byte b1 = (byte) Integer.parseInt(subString, 2);
+            mBuffer[i] = b1;
+            j++;
+        }
+        return mBuffer;
     }
 
 

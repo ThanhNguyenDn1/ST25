@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.st.st25nfc.R;
 import com.st.st25nfc.databinding.ActivityCovertBinding;
+import com.st.st25nfc.generic.ReadFragmentActivity;
 import com.st.st25nfc.generic.STFragmentActivity;
 import com.st.st25nfc.generic.util.UIHelper;
 import com.st.st25sdk.MultiAreaInterface;
@@ -90,6 +91,19 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icdLoadUpdate.btnLoad.setOnClickListener(view -> {
             loadDataView();
         });
+
+        mBinding.icdReadWrite.btnWrite.setOnClickListener(view -> {
+            writeData();
+        });
+    }
+
+    private void writeData() {
+        getViewMain();
+
+
+        //write
+        AsyncTaskWriteDataMessage mTaskWriteDataMessage = new AsyncTaskWriteDataMessage(getTag(),mBuffer,0);
+        mTaskWriteDataMessage.execute();
     }
 
     private void loadDataView() {
@@ -113,6 +127,17 @@ public class CovertActivity extends STFragmentActivity {
     }
 
     private void setView3G() {
+        mBinding.icd3GSettings.edtEnable.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 0));
+        mBinding.icd3GSettings.edtInterval.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 17, 29));
+        mBinding.icd3GSettings.edtPort.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 1, 16));
+        mBinding.icd3GSettings.edtServer.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 1, 16));
+
+        String mobilePhones[] = {"Vietel", "Mobifone", "Vietnammobile", "Viettel Data"};
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mobilePhones);
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        mBinding.icd3GSettings.spnAPN.setAdapter(adapter);
+        mBinding.icd3GSettings.spnAPN.setSelection(Integer.parseInt(mViewmodel.getDexFromBuffer(15, mBuffer, 30, 31)));
+
 
     }
 
@@ -148,6 +173,28 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icdMainSettings.edtPressure.setText(mViewmodel.getDexFromBuffer(14, mBuffer, 2));
         mBinding.icdMainSettings.edtAction.setText("");//TODO
         mBinding.icdMainSettings.edtBatVolt.setText(mViewmodel.getDexFromBuffer(12, mBuffer, 0,15));
+    }
+
+    private void getViewMain() {
+        mBuffer = mViewmodel.setDataToBuffer(4, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDYear.getText().toString(), 0, 7);
+        mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDMonth.getText().toString(), 24, 31);
+        mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultID.getText().toString(), 0, 23);
+        mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtCountry.getText().toString(), 0, 7);
+        mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtHardware.getText().toString(), 24, 31);
+        mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtFirmWare.getText().toString(), 8, 15);
+        mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtSW.getText().toString(), 16, 23);
+        mBuffer = mViewmodel.setDataToBuffer(13, mBuffer, false, mBinding.icdMainSettings.edtCustomID.getText().toString(), 0, 19);
+        mBuffer = mViewmodel.setDataToBuffer(13, mBuffer, false, mBinding.icdMainSettings.edtType.getText().toString(), 20, 23);
+        mBuffer = mViewmodel.setDataToBuffer(0, mBuffer, true, mBinding.icdMainSettings.edtPulseInput1.getText().toString(), 0, 0);
+        mBuffer = mViewmodel.setDataToBuffer(1, mBuffer, true, mBinding.icdMainSettings.edtPulseInput2.getText().toString(), 1, 1);
+        mBuffer = mViewmodel.setDataToBuffer(0, mBuffer, false, mBinding.icdMainSettings.edtPulseM3.getText().toString(), 3, 16);
+        mBuffer = mViewmodel.setDataToBuffer(0, mBuffer, false, mBinding.icdMainSettings.edtDigit.getText().toString(), 17, 20);
+        mBuffer = mViewmodel.setDataToBuffer(0, mBuffer, false, mBinding.icdMainSettings.edtSVD.getText().toString(), 26, 31);
+        mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, false, mBinding.icdMainSettings.edtDecimal.getText().toString(), 23, 24);
+        mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, true, mBinding.icdMainSettings.edtPressure.getText().toString(), 2, 2);
+        // mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, true,   mBinding.icdMainSettings.edtAction.getText().toString(), 2,2);TODO
+        mBuffer = mViewmodel.setDataToBuffer(12, mBuffer, false, mBinding.icdMainSettings.edtBatVolt.getText().toString(), 0, 15);
+
     }
 
     private void setView() {
@@ -592,5 +639,136 @@ public class CovertActivity extends STFragmentActivity {
     public void setDataView(byte[] mBuffer) {
         mBinding.icdReadWrite.edtWaterIndex.setText(mViewmodel.getDexFromBuffer(6, mBuffer, 0,31));
         mBinding.icdReadWrite.edtPressure.setText(mViewmodel.getDexFromBuffer(29, mBuffer, 0,31));
+    }
+
+    protected class AsyncTaskWriteDataMessage extends AsyncTask<Void, Void, ActionStatus> {
+        byte[] mMessageData;
+        int mMemoryOffsetData;
+        NFCTag mNFCTag;
+        int mRetrievedAreaID = mAreaId;
+
+        public AsyncTaskWriteDataMessage(NFCTag tag, byte[] data, int offset) {
+            mMessageData = data;
+            mMemoryOffsetData = offset;
+            mNFCTag = tag;
+        }
+
+        @Override
+        protected ActionStatus doInBackground(Void... param) {
+            ActionStatus result = ActionStatus.ACTION_FAILED;
+
+            if (mMessageData != null ) {
+                UIHelper.displayCircularProgressBar(CovertActivity.this, getString(R.string.please_wait));
+                try {
+                    if (UIHelper.isAType4Tag(mNFCTag)) {
+                        // Tag type 4
+                        int fileId = UIHelper.getType4FileIdFromArea(mRetrievedAreaID);
+                        if (mWritePassword != null && mNFCTag instanceof STType4Tag) {
+                            ((STType4Tag) mNFCTag).writeBytes(fileId,mMemoryOffsetData, mMessageData, mWritePassword);
+                        } else {
+                            ((Type4Tag) mNFCTag).writeBytes(fileId,mMemoryOffsetData, mMessageData);
+                        }
+                        result = ActionStatus.ACTION_SUCCESSFUL;
+                    } else if (UIHelper.isAType5Tag(mNFCTag)){
+                        // Type 5
+                        // retrieve the AreaID
+                        mRetrievedAreaID = getAreaIdFromAddressInBytesForType5Tag(mStartAddress+mMemoryOffsetData);
+                        if (mRetrievedAreaID == -1) {
+                            // An issue occured retrieving AreaId from Address
+                            // Address is probably invalid or write overlap capacity
+                            //snackBarUiThreadWithMessage(getString(R.string.invalid_value));
+                        } else {
+                            mNFCTag.writeBytes(mStartAddress+mMemoryOffsetData, mMessageData);
+                            result = ActionStatus.ACTION_SUCCESSFUL;
+                        }
+                    } else if (UIHelper.isAType2Tag(mNFCTag)){
+                        // Type 2
+                        // retrieve the AreaID
+                        mRetrievedAreaID = getAreaIdFromAddressInBytesForType2Tag(mStartAddress+mMemoryOffsetData);
+                        if (mRetrievedAreaID == -1) {
+                            // An issue occured retrieving AreaId from Address
+                            // Address is probably invalid or write overlap capacity
+                            //snackBarUiThreadWithMessage(getString(R.string.invalid_value));
+                        } else {
+                            mNFCTag.writeBytes(mStartAddress+mMemoryOffsetData, mMessageData);
+                            result = ActionStatus.ACTION_SUCCESSFUL;
+
+                        }
+                    } else {
+                        // Tag not yet handled
+                        //snackBarUiThreadWithMessage(getString(R.string.invalid_value));
+                        Log.e(TAG, "Tag type not Handled");
+
+                    }
+                    if (result == ActionStatus.ACTION_SUCCESSFUL) {
+                        mWritePassword = null;
+                        UIHelper.invalidateCache(mNFCTag);
+                    }
+                    UIHelper.dismissCircularProgressBar();
+
+                }catch (STException e) {
+                    UIHelper.dismissCircularProgressBar();
+
+                    switch (e.getError()) {
+                        case WRONG_SECURITY_STATUS:
+                        case ISO15693_BLOCK_PROTECTED:
+                        case ISO15693_BLOCK_IS_LOCKED:
+                            result = ActionStatus.TAG_WRITE_PROTECTED;
+                            break;
+
+                        case TAG_NOT_IN_THE_FIELD:
+                            result = ActionStatus.TAG_NOT_IN_THE_FIELD;
+                            break;
+
+                        default:
+                            e.printStackTrace();
+                            break;
+                    }
+                }
+
+            } else {
+                // define error
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(ActionStatus actionStatus) {
+            UIHelper.dismissCircularProgressBar();
+            switch (actionStatus) {
+                case ACTION_SUCCESSFUL:
+                    showToast(R.string.tag_updated);
+                    startSmartTagRead();
+                    break;
+
+                case TAG_WRITE_PROTECTED:
+                    showToast(R.string.write_permission);
+                    if(UIHelper.isAType5Tag(mNFCTag))  {
+                        // Type 5
+                        // Check that targeted bytes not in several areas
+                        if (!isTargetedBytesInOneArea(mStartAddress+mMemoryOffsetData, mMessageData.length)) {
+                            // display information message that write on two areas protected....
+                            return;
+                        }
+                    }
+                    mIsAreaProtectedInWrite = true;
+                    //showWritePasswordDialog(mRetrievedAreaID);
+                    break;
+
+                case TAG_NOT_IN_THE_FIELD:
+                    showToast(R.string.tag_not_in_the_field);
+                    break;
+
+                case ACTION_FAILED:
+                default:
+                    showToast(R.string.command_failed);
+                    break;
+            }
+        }
     }
 }
