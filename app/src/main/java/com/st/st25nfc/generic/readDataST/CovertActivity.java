@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.st.st25nfc.R;
 import com.st.st25nfc.databinding.ActivityCovertBinding;
-import com.st.st25nfc.generic.ReadFragmentActivity;
 import com.st.st25nfc.generic.STFragmentActivity;
 import com.st.st25nfc.generic.util.UIHelper;
 import com.st.st25sdk.MultiAreaInterface;
@@ -37,6 +36,7 @@ import java.util.ArrayList;
 public class CovertActivity extends STFragmentActivity {
     private ActivityCovertBinding mBinding;
     private CoverViewmodel mViewmodel;
+    private ArrayAdapter adapter;
 
     //old
 
@@ -99,6 +99,9 @@ public class CovertActivity extends STFragmentActivity {
 
     private void writeData() {
         getViewMain();
+        getViewRTC();
+        getView3G();
+        getViewSensor();
 
 
         //write
@@ -126,20 +129,49 @@ public class CovertActivity extends STFragmentActivity {
 
     }
 
+    private void getViewSensor() {
+        mBuffer = mViewmodel.setDataToBuffer(28, mBuffer, false, mBinding.icdSenserSettings.edtIntervalGetPressure.getText().toString(), 0, 16);
+        mBuffer = mViewmodel.setDataToBuffer(31, mBuffer, false, mBinding.icdSenserSettings.edtHighPressureAlarm.getText().toString(), 16, 23);
+        mBuffer = mViewmodel.setDataToBuffer(31, mBuffer, false, mBinding.icdSenserSettings.edtLowPressureAlarm.getText().toString(), 8, 15);
+        mBuffer = mViewmodel.setDataToBuffer(38, mBuffer, false, mBinding.icdSenserSettings.edtIntervalCheckPressureAlarm.getText().toString(), 18, 31);
+        mBuffer = mViewmodel.setDataToBuffer(31, mBuffer, false, mBinding.icdSenserSettings.edtROCPulseCounter.getText().toString(), 0, 7);
+        mBuffer = mViewmodel.setDataToBuffer(38, mBuffer, false, mBinding.icdSenserSettings.edtROCPulseInterval.getText().toString(), 4, 17);
+    }
+
     private void setView3G() {
         mBinding.icd3GSettings.edtEnable.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 0));
         mBinding.icd3GSettings.edtInterval.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 17, 29));
         mBinding.icd3GSettings.edtPort.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 1, 16));
-        mBinding.icd3GSettings.edtServer.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 1, 16));
-
-        String mobilePhones[] = {"Vietel", "Mobifone", "Vietnammobile", "Viettel Data"};
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mobilePhones);
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        mBinding.icd3GSettings.edtServer.setText(mViewmodel.getDexFromBuffer(16, 27, mBuffer));
         mBinding.icd3GSettings.spnAPN.setAdapter(adapter);
         mBinding.icd3GSettings.spnAPN.setSelection(Integer.parseInt(mViewmodel.getDexFromBuffer(15, mBuffer, 30, 31)));
-
+        mBinding.icd3GSettings.edtAES.setText(mViewmodel.getDexFromBuffer(33, 36, mBuffer));
 
     }
+
+    private void getView3G() {
+        mBuffer = mViewmodel.setDataToBuffer(15, mBuffer, true,mBinding.icd3GSettings.edtEnable.getText().toString(), 0,0);
+        mBuffer = mViewmodel.setDataToBuffer(15, mBuffer, false,mBinding.icd3GSettings.edtInterval.getText().toString(), 17, 29);
+        mBuffer = mViewmodel.setDataToBuffer(15, mBuffer, false, mBinding.icd3GSettings.edtPort.getText().toString(), 1, 16);
+        //mBuffer = mViewmodel.setDataToBuffer(15, mBuffer, true,  mBinding.icd3GSettings.edtServer.getText().toString(), 1, 16);TODO
+       String value= mBinding.icd3GSettings.spnAPN.getSelectedItem().toString();
+       switch (value){
+           case "Vietel":
+               value ="0";
+               break;
+           case "Mobifone":
+               value ="1";
+               break;
+           case "Vietnammobile":
+               value ="2";
+               break;
+           case "Viettel Data":
+               value ="3";
+               break;
+       }
+        mBuffer = mViewmodel.setDataToBuffer(15, mBuffer, false, value, 30, 31);
+    }
+
 
     private void setViewRTC() {
         mBinding.icdRTCSettings.edtAMPM.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 21));
@@ -151,7 +183,18 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icdRTCSettings.edtDay.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 11,15));
         mBinding.icdRTCSettings.edtMonth.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 7,10));
         mBinding.icdRTCSettings.edtYear.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 0,6));
-        mBinding.icdRTCSettings.edtYear.setText(mViewmodel.getDexFromBuffer(1, mBuffer, 0,6));
+    }
+
+    private void getViewRTC() {
+        mBuffer = mViewmodel.setDataToBuffer(2, mBuffer, true, mBinding.icdRTCSettings.edtAMPM.getText().toString(), 21, 21);
+        //mBuffer=mViewmodel.setDataToBuffer(2,mBuffer,true, mBinding.icdRTCSettings.edt1224.getText().toString(), 21,21 );TODO FIX
+        mBuffer = mViewmodel.setDataToBuffer(2, mBuffer, false, mBinding.icdRTCSettings.edtWeek.getText().toString(), 0, 2);
+        mBuffer = mViewmodel.setDataToBuffer(2, mBuffer, false, mBinding.icdRTCSettings.edtHour.getText().toString(), 3, 7);
+        mBuffer = mViewmodel.setDataToBuffer(2, mBuffer, false, mBinding.icdRTCSettings.edtMinute.getText().toString(), 8, 13);
+        mBuffer = mViewmodel.setDataToBuffer(2, mBuffer, false, mBinding.icdRTCSettings.edtSecond.getText().toString(), 14, 19);
+        mBuffer = mViewmodel.setDataToBuffer(1, mBuffer, false, mBinding.icdRTCSettings.edtDay.getText().toString(), 11, 15);
+        mBuffer = mViewmodel.setDataToBuffer(1, mBuffer, false, mBinding.icdRTCSettings.edtMonth.getText().toString(), 7, 10);
+        mBuffer = mViewmodel.setDataToBuffer(1, mBuffer, false, mBinding.icdRTCSettings.edtYear.getText().toString(), 0,6);
     }
 
     private void setViewMain() {
@@ -178,7 +221,7 @@ public class CovertActivity extends STFragmentActivity {
     private void getViewMain() {
         mBuffer = mViewmodel.setDataToBuffer(4, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDYear.getText().toString(), 0, 7);
         mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultIDMonth.getText().toString(), 24, 31);
-      //  mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultID.getText().toString(), 0, 23);
+        mBuffer = mViewmodel.setDataToBuffer(3, mBuffer, false, mBinding.icdMainSettings.edtDefaultID.getText().toString(), 0, 23);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtCountry.getText().toString(), 0, 7);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtHardware.getText().toString(), 24, 31);
         mBuffer = mViewmodel.setDataToBuffer(39, mBuffer, false, mBinding.icdMainSettings.edtFirmWare.getText().toString(), 8, 15);
@@ -192,7 +235,7 @@ public class CovertActivity extends STFragmentActivity {
         mBuffer = mViewmodel.setDataToBuffer(0, mBuffer, false, mBinding.icdMainSettings.edtSVD.getText().toString(), 26, 31);
         mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, false, mBinding.icdMainSettings.edtDecimal.getText().toString(), 23, 24);
         mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, true, mBinding.icdMainSettings.edtPressure.getText().toString(), 2, 2);
-        // mBuffer = mViewmodel.setDataToBuffer(14, mBuffer, true,   mBinding.icdMainSettings.edtAction.getText().toString(), 2,2);TODO
+        mBuffer = mViewmodel.setDataToBuffer(5, mBuffer, false,   mBinding.icdMainSettings.edtAction.getText().toString(), 0,31);
         mBuffer = mViewmodel.setDataToBuffer(12, mBuffer, false, mBinding.icdMainSettings.edtBatVolt.getText().toString(), 0, 15);
 
     }
@@ -282,6 +325,9 @@ public class CovertActivity extends STFragmentActivity {
             }
         }
 
+        String mobilePhones[] = {"Vietel", "Mobifone", "Vietnammobile", "Viettel Data"};
+        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mobilePhones);
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
     }
 
 
@@ -460,7 +506,7 @@ public class CovertActivity extends STFragmentActivity {
                         showToast(R.string.invalid_value);
                         return false;
                     }
-                } catch (STException e)
+                } catch (STException e){
                     mReadPassword = null;
 
                     switch (e.getError()) {
