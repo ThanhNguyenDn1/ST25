@@ -4,6 +4,13 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
+import com.st.st25sdk.Helper;
+
+import org.spongycastle.util.encoders.Base64Encoder;
+import org.spongycastle.util.encoders.Hex;
+
+import java.nio.charset.StandardCharsets;
+
 public class CoverViewmodel extends ViewModel {
     public String getDexFromBuffer(int indexBuffers, byte[] mBuffer, int indexBit) {
         String bitsOfLock = "";
@@ -28,7 +35,7 @@ public class CoverViewmodel extends ViewModel {
 
 
         try {
-            return convertBinaryToDecimal(Long.parseLong(data)) + "";
+            return convertBinaryToDecimal2(data) + "";
         } catch (Exception io) {
             Log.e("22222", "getDexFromBuffer: " + io);
             return "err";
@@ -46,7 +53,7 @@ public class CoverViewmodel extends ViewModel {
         }
 
         try {
-            return convertBinaryToDecimal(Long.parseLong(bitsOfLock)) + "";
+            return convertBinaryToDecimal2(bitsOfLock) + "";
         } catch (Exception io) {
             Log.e("22222", "getDexFromBuffer: " + io);
             return "err";
@@ -71,11 +78,31 @@ public class CoverViewmodel extends ViewModel {
 
     private int convertBinaryToDecimal(String num) {
         int decimalNumber = 0;
+        int remainder = 0;
         for (int i = 0; i < num.length(); i++) {
-            decimalNumber += Math.pow(2, Integer.parseInt( num.charAt(i)+""));
+            remainder = Integer.parseInt( num.charAt(i)+"") % 10;
+            decimalNumber += remainder* Math.pow(2, (num.length()-1-i));
+        }
+        return decimalNumber;
+       // 0 0 0 1 1 1
+    }
+
+    private String convertBinaryToDecimal2(String num) {
+        int soDu= num.length()%8;
+        String decimalNumber="";
+        if (soDu != 0) {
+            while (num.length()%8!=0){
+                num = "0".concat(num);
+            }
+        }
+        int i=7;
+        while(i<num.length()){
+            decimalNumber = decimalNumber.concat(Integer.parseInt(num.substring(i-7, i+1),2)+"");
+            i+=8;
         }
 
-        return decimalNumber;
+        return Integer.parseInt(decimalNumber)+"";
+        // 0 0 0 1 1 1
     }
 
 
@@ -122,4 +149,25 @@ public class CoverViewmodel extends ViewModel {
     }
 
 
+    public String getServer(int indexBlockStart, int indexBlockEnd, byte[] mBuffer) {
+        byte[] data=new byte[(indexBlockEnd-indexBlockStart+1)*4];
+        int j=0;
+        for (int i = indexBlockStart * 4; i < indexBlockStart * 4 + 4 * (indexBlockEnd - indexBlockStart + 1); i++) {
+            data[j]=mBuffer[i];
+            ++j;
+        }
+        return new String(data, StandardCharsets.UTF_8);
+    }
+
+    public String getHex(int indexBlockStart, int indexBlockEnd, byte[] mBuffer) {
+        byte[] data=new byte[(indexBlockEnd-indexBlockStart+1)*4];
+        String dataHex="";
+        int j=0;
+        for (int i = indexBlockStart * 4; i < indexBlockStart * 4 + 4 * (indexBlockEnd - indexBlockStart + 1); i++) {
+            data[j]=mBuffer[i];
+            dataHex=dataHex.concat(Helper.convertByteToHexString(mBuffer[i]).toUpperCase());
+            ++j;
+        }
+        return dataHex;
+    }
 }

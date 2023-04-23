@@ -142,10 +142,10 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icd3GSettings.edtEnable.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 0));
         mBinding.icd3GSettings.edtInterval.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 17, 29));
         mBinding.icd3GSettings.edtPort.setText(mViewmodel.getDexFromBuffer(15, mBuffer, 1, 16));
-        mBinding.icd3GSettings.edtServer.setText(mViewmodel.getDexFromBuffer(16, 27, mBuffer));
+        mBinding.icd3GSettings.edtServer.setText(mViewmodel.getServer(16, 27, mBuffer));
         mBinding.icd3GSettings.spnAPN.setAdapter(adapter);
         mBinding.icd3GSettings.spnAPN.setSelection(Integer.parseInt(mViewmodel.getDexFromBuffer(15, mBuffer, 30, 31)));
-        mBinding.icd3GSettings.edtAES.setText(mViewmodel.getDexFromBuffer(33, 36, mBuffer));
+        mBinding.icd3GSettings.edtAES.setText(mViewmodel.getHex(33, 36, mBuffer));
 
     }
 
@@ -175,7 +175,7 @@ public class CovertActivity extends STFragmentActivity {
 
     private void setViewRTC() {
         mBinding.icdRTCSettings.edtAMPM.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 21));
-        mBinding.icdRTCSettings.edt1224.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 21));//TODO
+        mBinding.icdRTCSettings.edt1224.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 20));
         mBinding.icdRTCSettings.edtWeek.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 0,2));
         mBinding.icdRTCSettings.edtHour.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 3,7));
         mBinding.icdRTCSettings.edtMinute.setText(mViewmodel.getDexFromBuffer(2, mBuffer, 8,13));
@@ -206,7 +206,7 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icdMainSettings.edtFirmWare.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,8,15));
         mBinding.icdMainSettings.edtSW.setText(mViewmodel.getDexFromBuffer(39,  mBuffer,16,23));
         mBinding.icdMainSettings.edtCustomID.setText(mViewmodel.getDexFromBuffer(13,mBuffer, 0, 19));//TODO
-        mBinding.icdMainSettings.edtType.setText(mViewmodel.getDexFromBuffer(13,mBuffer, 20, 23));//TODO
+        mBinding.icdMainSettings.edtType.setText(mViewmodel.getDexFromBuffer(13,mBuffer, 20, 23));
         mBinding.icdMainSettings.edtPulseInput1.setText(mViewmodel.getDexFromBuffer(0, mBuffer,0));
         mBinding.icdMainSettings.edtPulseInput2.setText(mViewmodel.getDexFromBuffer(1, mBuffer,1));
         mBinding.icdMainSettings.edtPulseM3.setText(mViewmodel.getDexFromBuffer(0,mBuffer,3, 16));
@@ -214,7 +214,7 @@ public class CovertActivity extends STFragmentActivity {
         mBinding.icdMainSettings.edtSVD.setText(mViewmodel.getDexFromBuffer(0, mBuffer, 26,31));
         mBinding.icdMainSettings.edtDecimal.setText(mViewmodel.getDexFromBuffer(14, mBuffer, 23,24));
         mBinding.icdMainSettings.edtPressure.setText(mViewmodel.getDexFromBuffer(14, mBuffer, 2));
-        mBinding.icdMainSettings.edtAction.setText("");//TODO
+        mBinding.icdMainSettings.edtAction.setText(mViewmodel.getDexFromBuffer(5, mBuffer, 0,31));//TODO
         mBinding.icdMainSettings.edtBatVolt.setText(mViewmodel.getDexFromBuffer(12, mBuffer, 0,15));
     }
 
