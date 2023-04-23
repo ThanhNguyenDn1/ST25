@@ -21,7 +21,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-        android:background="@drawable/bg_edittext"
+        android:textSize="12sp"
+android:background="@drawable/bg_edittext"
         app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
         app:layout_constraintRight_toLeftOf="@id/tvCountry"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_edittext"
+        android:textSize="12sp"
+android:background="@drawable/bg_edittext"
         app:layout_constraintLeft_toRightOf="@id/tvWaterIndex"
         app:layout_constraintRight_toLeftOf="@id/tvUnitWaterPressure"
         app:layout_constraintTop_toBottomOf="@id/edtWaterIndex" />
@@ -71,42 +73,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/edtPressure" />
 
-    <TextView
-        android:id="@+id/btnRead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_button"
-        android:padding="10dp"
-        android:text="Read"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtPressure" />
-
-    <TextView
-        android:id="@+id/btnWrite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:padding="10dp"
-        android:text="Write"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/btnRead"
-        app:layout_constraintRight_toLeftOf="@id/btnReadData"
-        app:layout_constraintTop_toTopOf="@id/btnRead" />
-
-    <TextView
-        android:id="@+id/btnReadData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:padding="10dp"
-        android:text="Read Data"
-        android:textSize="16sp"
-        android:textStyle="bold"
-
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnRead" />
 </androidx.constraintlayout.widget.ConstraintLayout>

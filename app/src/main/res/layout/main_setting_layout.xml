@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Default IDYear"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,6 +39,7 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvDefaultIDYear"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Country"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDYear"
             app:layout_constraintEnd_toStartOf="@id/edtCountry"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtDefaultIDYear" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -75,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Default IDMonth"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDMonth"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -87,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvDefaultIDMonth"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="HardWare"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultIDMonth"
             app:layout_constraintEnd_toStartOf="@id/edtHardware"
@@ -109,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtDefaultIDMonth" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -123,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Default ID"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultID"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -135,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvDefaultID"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="FirmWare"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtDefaultID"
             app:layout_constraintEnd_toStartOf="@id/edtFirmWare"
@@ -157,6 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtDefaultID" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -171,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom ID"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtCustomID"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -183,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvCustomID"
             app:layout_constraintRight_toLeftOf="@id/tvType"
             app:layout_constraintTop_toTopOf="parent" />
@@ -193,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Type"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtCustomID"
             app:layout_constraintEnd_toStartOf="@id/edtType"
@@ -206,6 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toLeftOf="@id/tvSW"
             app:layout_constraintTop_toTopOf="@id/edtCustomID" />
 
@@ -215,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="SW"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtCustomID"
             app:layout_constraintEnd_toStartOf="@id/edtSW"
@@ -228,6 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtCustomID" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -242,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pulse Input 1"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -254,6 +263,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tvPulseInput1"
             app:layout_constraintTop_toTopOf="parent" />
@@ -264,7 +274,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Pulse/m3"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput1"
             app:layout_constraintEnd_toStartOf="@id/edtPulseM3"
@@ -277,6 +287,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toLeftOf="@id/tvDigit"
             app:layout_constraintTop_toTopOf="@id/edtPulseInput1" />
 
@@ -286,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Digit"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput1"
             app:layout_constraintEnd_toStartOf="@id/edtDigit"
@@ -299,6 +310,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtPulseInput1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -313,7 +325,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pulse Input 2"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -325,6 +337,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvIntervalGetPressure"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -334,7 +347,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="SVD"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
             app:layout_constraintEnd_toStartOf="@id/edtSVD"
@@ -347,6 +360,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toLeftOf="@id/tvWeek"
             app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
 
@@ -356,7 +370,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Decimal"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPulseInput2"
             app:layout_constraintEnd_toStartOf="@id/edtDecimal"
@@ -369,9 +383,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtPulseInput2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -382,7 +398,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pressure"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtPressure"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -394,11 +410,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvPressure"
             app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -408,7 +426,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ACTION"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtAction"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -421,6 +439,7 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@id/tvAction"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -430,7 +449,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Bat. Volt"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edtAction"
             app:layout_constraintEnd_toStartOf="@id/edtBatVolt"
@@ -443,6 +462,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_edittext"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtAction" />
     </androidx.constraintlayout.widget.ConstraintLayout>

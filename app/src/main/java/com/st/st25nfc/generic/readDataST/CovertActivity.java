@@ -83,16 +83,13 @@ public class CovertActivity extends STFragmentActivity {
     }
 
     private void handlerEvent() {
-        mBinding.icdReadWrite.btnRead.setOnClickListener(view -> {
+        mBinding.icdLoadUpdate.btnLoad.setOnClickListener(view -> {
             if (startSmartTagReadGetParametersFromUI()) {
                 startSmartTagRead();
             }
         });
-        mBinding.icdLoadUpdate.btnLoad.setOnClickListener(view -> {
-            loadDataView();
-        });
 
-        mBinding.icdReadWrite.btnWrite.setOnClickListener(view -> {
+        mBinding.icdLoadUpdate.btnUpdate.setOnClickListener(view -> {
             writeData();
         });
     }
@@ -549,8 +546,8 @@ public class CovertActivity extends STFragmentActivity {
             if (mBuffer != null && result == true) {
                 CovertActivity.this.mBuffer = mBuffer;
                 setDataView(mBuffer);
+                loadDataView();
                 Toast.makeText(CovertActivity.this, "" + mBuffer.length, Toast.LENGTH_SHORT).show();
-                //TODO
             }
 
         }
